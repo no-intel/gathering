@@ -13,10 +13,9 @@ import static org.noint.gathering.entity.member.MemberStatus.REGISTERED;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "users")
 public class Member extends BaseTimeEntity {
     @Id @GeneratedValue
-    @Column(name = "user_id")
+    @Column(name = "member_id")
     private Long Id;
 
     private String email;
