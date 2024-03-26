@@ -2,9 +2,7 @@ package org.noint.gathering.entity;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,19 +12,15 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.noint.gathering.entity.QComment.comment;
 
-@SpringBootTest @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@SpringBootTest
 @Transactional
 class CommentTest {
 
     @Autowired
     EntityManager em;
 
+    @Autowired
     JPAQueryFactory queryFactory;
-
-    @BeforeAll
-    void before() {
-        queryFactory = new JPAQueryFactory(em);
-    }
 
     @Test
     public void 코멘트_엔티티_테스트() throws Exception {

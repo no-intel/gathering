@@ -15,19 +15,15 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.noint.gathering.entity.QMember.member;
 
-@SpringBootTest @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@SpringBootTest
 @Transactional
 class MemberTest {
 
     @Autowired
     EntityManager em;
 
+    @Autowired
     JPAQueryFactory queryFactory;
-
-    @BeforeAll
-    void before() {
-        this.queryFactory = new JPAQueryFactory(em);
-    }
 
     @Test
     public void 멤버_엔티티_테스트() throws Exception {

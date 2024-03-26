@@ -2,11 +2,7 @@ package org.noint.gathering.entity;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.noint.gathering.entity.Gathering;
-import org.noint.gathering.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,19 +12,15 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.noint.gathering.entity.QGathering.gathering;
 
-@SpringBootTest @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@SpringBootTest
 @Transactional
 class GatheringTest {
 
     @Autowired
     EntityManager em;
 
+    @Autowired
     JPAQueryFactory queryFactory;
-
-    @BeforeAll
-    void before() {
-        this.queryFactory = new JPAQueryFactory(em);
-    }
 
     @Test
     public void 모임_엔티티_테스트() throws Exception {
