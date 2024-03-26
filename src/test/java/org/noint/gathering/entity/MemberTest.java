@@ -1,4 +1,4 @@
-package org.noint.gathering.entity.member;
+package org.noint.gathering.entity;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
