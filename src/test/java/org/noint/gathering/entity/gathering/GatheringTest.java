@@ -1,10 +1,11 @@
-package org.noint.gathering.entity.member;
+package org.noint.gathering.entity.gathering;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.noint.gathering.entity.member.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.noint.gathering.entity.member.QMember.member;
+import static org.noint.gathering.entity.gathering.QGathering.gathering;
 
 @SpringBootTest @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Transactional
-class MemberTest {
+class GatheringTest {
 
     @Autowired
     EntityManager em;
@@ -29,18 +30,23 @@ class MemberTest {
     }
 
     @Test
-    public void 멤버_엔티티_테스트() throws Exception {
+    public void 모임_엔티티_테스트() throws Exception {
         Member user = new Member("a@b.c", "유저", "password");
         em.persist(user);
+        Gathering newGathering = new Gathering("모각코", "각자 모여 코딩합시다", 4, user);
+        em.persist(newGathering);
+
         em.flush();
         em.clear();
 
-        List<Member> findMembers = queryFactory
-                .selectFrom(member)
+        List<Gathering> gatherings = queryFactory
+                .selectFrom(gathering)
                 .fetch();
 
-        assertThat(findMembers.size()).isEqualTo(1);
-        assertThat(findMembers).extracting("name").contains("유저");
-    }
+        Member creator = gatherings.getFirst().getMember();
 
+        assertThat(gatherings.size()).isEqualTo(1);
+        assertThat(gatherings).extracting("subject").contains(newGathering.getSubject());
+        assertThat(creator.getName()).isEqualTo(user.getName());
+    }
 }
