@@ -1,11 +1,9 @@
-package org.noint.gathering.entity.gathering;
+package org.noint.gathering.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.noint.gathering.entity.BaseTimeEntity;
-import org.noint.gathering.entity.member.Member;
 
 import static jakarta.persistence.FetchType.*;
 

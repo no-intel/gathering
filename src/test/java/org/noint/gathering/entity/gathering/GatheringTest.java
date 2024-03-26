@@ -5,7 +5,8 @@ import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.noint.gathering.entity.member.Member;
+import org.noint.gathering.entity.Gathering;
+import org.noint.gathering.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.noint.gathering.entity.gathering.QGathering.gathering;
+import static org.noint.gathering.entity.QGathering.gathering;
 
 @SpringBootTest @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Transactional

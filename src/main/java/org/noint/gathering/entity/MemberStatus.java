@@ -1,4 +1,4 @@
-package org.noint.gathering.entity.member;
+package org.noint.gathering.entity;
 
 public enum MemberStatus {
     REGISTERED, BLOCKED, INACTIVE

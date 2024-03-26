@@ -1,14 +1,13 @@
-package org.noint.gathering.entity.member;
+package org.noint.gathering.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.noint.gathering.entity.BaseTimeEntity;
 
 import java.math.BigDecimal;
 
-import static org.noint.gathering.entity.member.MemberStatus.REGISTERED;
+import static org.noint.gathering.entity.MemberStatus.REGISTERED;
 
 @Entity
 @Getter
