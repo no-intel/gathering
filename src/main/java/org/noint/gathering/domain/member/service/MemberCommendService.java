@@ -3,8 +3,6 @@ package org.noint.gathering.domain.member.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.noint.gathering.domain.member.dto.request.RegisterReqDto;
-import org.noint.gathering.domain.member.dto.request.LoginReqDto;
-import org.noint.gathering.domain.member.dto.response.MyInfoResDto;
 import org.noint.gathering.domain.member.exception.MemberException;
 import org.noint.gathering.domain.member.repository.MemberRepository;
 import org.noint.gathering.entity.Member;
@@ -12,9 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
-import static org.noint.gathering.domain.member.enums.MemberExceptionBody.*;
+import static org.noint.gathering.domain.member.enums.MemberExceptionBody.EMAIL_DUPLICATE;
+import static org.noint.gathering.domain.member.enums.MemberExceptionBody.NAME_DUPLICATE;
 
 @Slf4j
 @Service
