@@ -37,4 +37,19 @@ class MemberTest {
         assertThat(findMembers).extracting("name").contains("유저");
     }
 
+    @Test
+    void 계정_상태값_테스트() throws Exception {
+        Member user = new Member("a@b.c", "유저", "password");
+        em.persist(user);
+        em.flush();
+        em.clear();
+
+        Member findMember = queryFactory
+                .selectFrom(member)
+                .fetchOne();
+
+        boolean isActiveMember = findMember.isActiveMember();
+
+        assertThat(isActiveMember).isTrue();
+    }
 }

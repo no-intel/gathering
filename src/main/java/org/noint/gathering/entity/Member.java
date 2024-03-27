@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 
 import static org.noint.gathering.entity.MemberStatus.REGISTERED;
 
+@Slf4j
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -34,5 +36,11 @@ public class Member extends BaseTimeEntity {
         this.password = password;
         this.status = REGISTERED;
         this.money = BigDecimal.ZERO;
+    }
+
+    public boolean isActiveMember() {
+        MemberStatus status = this.getStatus();
+        log.info("계정 상태 : " + status.name());
+        return status == REGISTERED;
     }
 }
