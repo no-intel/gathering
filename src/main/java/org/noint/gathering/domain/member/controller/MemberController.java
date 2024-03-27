@@ -40,8 +40,15 @@ public class MemberController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<MyInfoResDto> login(@RequestAttribute("memberId") Long memberId) {
+    public ResponseEntity<MyInfoResDto> myInfo(@RequestAttribute("memberId") Long memberId) {
         log.info("내 정보 API");
         return new ResponseEntity<>(memberQueryService.myInfo(memberId), HttpStatus.OK);
+    }
+
+    @PatchMapping("/member/resign")
+    public ResponseEntity<Void> resign(@RequestAttribute("memberId") Long memberId) {
+        log.info("탈퇴 API");
+        memberCommendService.resign(memberId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
