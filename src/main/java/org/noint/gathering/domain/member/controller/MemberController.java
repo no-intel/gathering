@@ -11,9 +11,7 @@ import org.noint.gathering.domain.member.service.MemberCommendService;
 import org.noint.gathering.domain.member.service.MemberQueryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -39,5 +37,11 @@ public class MemberController {
         MyInfoResDto myInfo = memberQueryService.login(request);
         session.setAttribute("memberId", myInfo.memberId());
         return new ResponseEntity<>(myInfo, HttpStatus.OK);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<MyInfoResDto> login(@RequestAttribute("memberId") Long memberId) {
+        log.info("내 정보 API");
+        return new ResponseEntity<>(memberQueryService.myInfo(memberId), HttpStatus.OK);
     }
 }
