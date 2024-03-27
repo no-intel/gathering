@@ -13,7 +13,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RoomSchedule extends BaseTimeEntity {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_schedule_id")
     private Long id;
 

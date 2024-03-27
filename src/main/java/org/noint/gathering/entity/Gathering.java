@@ -11,7 +11,7 @@ import static jakarta.persistence.FetchType.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Gathering extends BaseTimeEntity {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "gathering_id")
     private Long id;
 
