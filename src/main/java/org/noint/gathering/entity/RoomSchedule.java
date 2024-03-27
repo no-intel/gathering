@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
@@ -14,6 +16,8 @@ public class RoomSchedule extends BaseTimeEntity {
     @Id @GeneratedValue
     @Column(name = "room_schedule_id")
     private Long id;
+
+    private LocalDate date;
 
     @Enumerated(EnumType.STRING)
     private AbleStatus isAble;
