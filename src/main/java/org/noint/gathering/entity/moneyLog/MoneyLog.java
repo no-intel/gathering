@@ -16,7 +16,7 @@ import static jakarta.persistence.FetchType.LAZY;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MoneyLog extends BaseTimeEntity {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "money_log_id")
     private Long id;
 
