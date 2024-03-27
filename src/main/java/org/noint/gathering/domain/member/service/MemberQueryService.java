@@ -34,7 +34,7 @@ public class MemberQueryService {
 
         Member findMember = memberOptional.get();
         if (!findMember.isActiveMember()) {
-            log.warn("활성화 된 계정이 아닙니다.");
+            log.warn("활성중인 계정이 아닙니다.");
             throw new MemberException(LOGIN_FAILED);
         }
 
