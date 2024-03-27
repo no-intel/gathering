@@ -4,6 +4,7 @@ import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.noint.gathering.domain.member.dto.request.MemberJoinReqDto;
+import org.noint.gathering.domain.member.exception.MemberException;
 import org.noint.gathering.domain.member.repository.MemberRepository;
 import org.noint.gathering.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ class MemberCommendServiceTest {
         ThrowingCallable throwable = () -> memberCommendService.join(request);
 
         //then
-        assertThatThrownBy(throwable).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(throwable).isInstanceOf(MemberException.class);
     }
 
     @Test
@@ -62,6 +63,6 @@ class MemberCommendServiceTest {
         ThrowingCallable throwable = () -> memberCommendService.join(request);
 
         //then
-        assertThatThrownBy(throwable).isInstanceOf(RuntimeException.class);
+        assertThatThrownBy(throwable).isInstanceOf(MemberException.class);
     }
 }

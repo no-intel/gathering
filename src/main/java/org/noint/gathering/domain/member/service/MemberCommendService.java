@@ -2,11 +2,15 @@ package org.noint.gathering.domain.member.service;
 
 import lombok.RequiredArgsConstructor;
 import org.noint.gathering.domain.member.dto.request.MemberJoinReqDto;
+import org.noint.gathering.domain.member.exception.MemberException;
 import org.noint.gathering.domain.member.repository.MemberRepository;
 import org.noint.gathering.entity.Member;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.noint.gathering.domain.member.enums.MemberExceptionBody.EMAIL_DUPLICATE;
+import static org.noint.gathering.domain.member.enums.MemberExceptionBody.NAME_DUPLICATE;
 
 @Service
 @Transactional(readOnly = true)
@@ -26,10 +30,10 @@ public class MemberCommendService {
 
     private void checkDuplicate(String email, String name) {
         if (isExistEmail(email)) {
-            throw new RuntimeException("bbbb");
+            throw new MemberException(EMAIL_DUPLICATE);
         }
         if (isExistName(name)) {
-            throw new RuntimeException("aaa");
+            throw new MemberException(NAME_DUPLICATE);
         }
     }
 
