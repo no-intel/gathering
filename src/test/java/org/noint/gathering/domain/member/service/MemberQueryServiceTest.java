@@ -69,4 +69,27 @@ class MemberQueryServiceTest {
         assertThatThrownBy(throwable).isInstanceOf(MemberException.class);
     }
 
+    @Test
+    void 내_정보_가져오기() throws Exception {
+        //given
+        Long memberId = 1L;
+
+        //when
+        MyInfoResDto myInfo = memberQueryService.myInfo(memberId);
+
+        //then
+        assertThat(myInfo.memberId()).isEqualTo(memberId);
+    }
+
+    @Test
+    void 내_정보_가져오기_실패() throws Exception {
+        //given
+        Long memberId = 0L;
+
+        //when
+        ThrowingCallable throwable = () -> memberQueryService.myInfo(memberId);
+
+        //then
+        assertThatThrownBy(throwable).isInstanceOf(MemberException.class);
+    }
 }

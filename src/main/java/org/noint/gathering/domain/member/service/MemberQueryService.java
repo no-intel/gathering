@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static org.noint.gathering.domain.member.enums.MemberExceptionBody.LOGIN_FAILED;
+import static org.noint.gathering.domain.member.enums.MemberExceptionBody.*;
 
 @Slf4j
 @Service
@@ -43,6 +43,12 @@ public class MemberQueryService {
             log.warn("비밀번호 불일치");
             throw new MemberException(LOGIN_FAILED);
         }
+        return new MyInfoResDto(findMember.getId(), findMember.getEmail(), findMember.getName(), findMember.getMoney());
+    }
+
+    public MyInfoResDto myInfo(Long memberId) {
+        Member findMember = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(NOT_FOUND_MEMBER));
         return new MyInfoResDto(findMember.getId(), findMember.getEmail(), findMember.getName(), findMember.getMoney());
     }
 }
