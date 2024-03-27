@@ -7,6 +7,7 @@ import org.noint.gathering.domain.member.dto.request.RegisterReqDto;
 import org.noint.gathering.domain.member.exception.MemberException;
 import org.noint.gathering.domain.member.repository.MemberRepository;
 import org.noint.gathering.entity.Member;
+import org.noint.gathering.entity.MemberStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,4 +67,16 @@ class MemberCommendServiceTest {
         assertThatThrownBy(throwable).isInstanceOf(MemberException.class);
     }
 
+    @Test
+    void 회원탈퇴_성공() throws Exception {
+        //given
+        Long memberId = 1L;
+
+        //when
+        memberCommendService.resign(memberId);
+        Member findMember = memberRepository.findById(memberId).get();
+
+        //then
+        assertThat(findMember.getStatus()).isEqualTo(MemberStatus.INACTIVE);
+    }
 }

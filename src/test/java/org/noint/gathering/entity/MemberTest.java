@@ -52,4 +52,20 @@ class MemberTest {
 
         assertThat(isActiveMember).isTrue();
     }
+
+    @Test
+    void 회원_탈퇴_테스트() throws Exception {
+        Member user = new Member("a@b.c", "유저", "password");
+        em.persist(user);
+        user.resign();
+
+        em.flush();
+        em.clear();
+
+        Member findMember = queryFactory
+                .selectFrom(member)
+                .fetchOne();
+
+        assertThat(findMember.getStatus()).isEqualTo(MemberStatus.INACTIVE);
+    }
 }

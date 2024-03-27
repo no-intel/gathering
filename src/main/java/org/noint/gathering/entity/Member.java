@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 
+import static org.noint.gathering.entity.MemberStatus.INACTIVE;
 import static org.noint.gathering.entity.MemberStatus.REGISTERED;
 
 @Slf4j
@@ -42,5 +43,9 @@ public class Member extends BaseTimeEntity {
         MemberStatus status = this.getStatus();
         log.info("계정 상태 : " + status.name());
         return status == REGISTERED;
+    }
+
+    public void resign() {
+        this.status = INACTIVE;
     }
 }

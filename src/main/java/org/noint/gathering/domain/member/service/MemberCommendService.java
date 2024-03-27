@@ -10,8 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.noint.gathering.domain.member.enums.MemberExceptionBody.EMAIL_DUPLICATE;
-import static org.noint.gathering.domain.member.enums.MemberExceptionBody.NAME_DUPLICATE;
+import static org.noint.gathering.domain.member.enums.MemberExceptionBody.*;
 
 @Slf4j
 @Service
@@ -28,6 +27,12 @@ public class MemberCommendService {
         checkDuplicate(request.email(), request.name());
         memberRepository.save(newMember);
         return newMember.getId();
+    }
+
+    public void resign(Long memberId) {
+        Member findMember = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(NOT_FOUND_MEMBER));
+        findMember.resign();
     }
 
     private void checkDuplicate(String email, String name) {
