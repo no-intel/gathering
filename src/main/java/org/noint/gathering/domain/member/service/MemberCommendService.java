@@ -1,7 +1,8 @@
 package org.noint.gathering.domain.member.service;
 
 import lombok.RequiredArgsConstructor;
-import org.noint.gathering.domain.member.dto.request.MemberJoinReqDto;
+import org.noint.gathering.domain.member.dto.request.RegisterReqDto;
+import org.noint.gathering.domain.member.dto.request.LoginReqDto;
 import org.noint.gathering.domain.member.exception.MemberException;
 import org.noint.gathering.domain.member.repository.MemberRepository;
 import org.noint.gathering.entity.Member;
@@ -21,11 +22,16 @@ public class MemberCommendService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public Long join(MemberJoinReqDto request) {
+    @Transactional
+    public Long register(RegisterReqDto request) {
         Member newMember = new Member(request.email(), request.name(), passwordEncoder.encode(request.password()));
         checkDuplicate(request.email(), request.name());
         memberRepository.save(newMember);
         return newMember.getId();
+    }
+
+    public void login(LoginReqDto request) {
+
     }
 
     private void checkDuplicate(String email, String name) {
