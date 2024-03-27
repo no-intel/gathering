@@ -19,7 +19,25 @@ public class MemberCommendService {
 
     public Long join(MemberJoinReqDto request) {
         Member newMember = new Member(request.email(), request.name(), passwordEncoder.encode(request.password()));
+        checkDuplicate(request.email(), request.name());
         memberRepository.save(newMember);
         return newMember.getId();
+    }
+
+    private void checkDuplicate(String email, String name) {
+        if (isExistEmail(email)) {
+            throw new RuntimeException("bbbb");
+        }
+        if (isExistName(name)) {
+            throw new RuntimeException("aaa");
+        }
+    }
+
+    private boolean isExistEmail(String email) {
+        return memberRepository.findByEmail(email).isPresent();
+    }
+
+    private boolean isExistName(String name) {
+        return memberRepository.findByName(name).isPresent();
     }
 }
