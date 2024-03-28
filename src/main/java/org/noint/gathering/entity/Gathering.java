@@ -4,9 +4,14 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.noint.gathering.domain.gathering.enums.gathering.GatheringExceptionBody;
+import org.noint.gathering.domain.gathering.exception.gathering.GatheringException;
 
 import static jakarta.persistence.FetchType.LAZY;
+import static org.noint.gathering.domain.gathering.enums.gathering.GatheringExceptionBody.CAPACITY_EXCEEDED;
 
+@Slf4j
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -40,5 +45,14 @@ public class Gathering extends BaseTimeEntity {
         this.maxMembers = maxMembers;
         this.member = member;
         this.currentMembers = 1;
+    }
+
+    public void entryGathering() {
+        if (this.currentMembers < this.maxMembers) {
+            this.currentMembers++;
+        }else {
+            log.warn("참가 인원이 초과 되었습니다");
+            throw new GatheringException(CAPACITY_EXCEEDED);
+        }
     }
 }
