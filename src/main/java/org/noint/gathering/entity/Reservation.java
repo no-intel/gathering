@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
+import static org.noint.gathering.entity.Progress.PROGRESS;
 
 @Entity
 @Getter
@@ -19,6 +20,9 @@ public class Reservation extends BaseTimeEntity {
     @Column(name = "reservation_id")
     private Long id;
 
+    @Column(nullable = false)
+    private Progress progress;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "gathering_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), nullable = false)
     private Gathering gathering;
@@ -28,6 +32,7 @@ public class Reservation extends BaseTimeEntity {
     private RoomSchedule roomSchedule;
 
     public Reservation(Gathering gathering, RoomSchedule roomSchedule) {
+        this.progress = PROGRESS;
         this.gathering = gathering;
         this.roomSchedule = roomSchedule;
     }
