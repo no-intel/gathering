@@ -1,10 +1,10 @@
-package org.noint.gathering.domain.gathering.service;
+package org.noint.gathering.domain.gathering.service.gathering;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.noint.gathering.domain.gathering.dto.request.GatheringReqDto;
-import org.noint.gathering.domain.gathering.dto.response.GatheringInfoResDto;
-import org.noint.gathering.domain.gathering.repository.GatheringRepository;
+import org.noint.gathering.domain.gathering.dto.gathering.request.GatheringReqDto;
+import org.noint.gathering.domain.gathering.dto.gathering.response.GatheringInfoResDto;
+import org.noint.gathering.domain.gathering.repository.gathering.GatheringRepository;
 import org.noint.gathering.domain.member.service.MemberQueryService;
 import org.noint.gathering.entity.Gathering;
 import org.noint.gathering.entity.Member;
@@ -24,5 +24,10 @@ public class GatheringCommendService {
         Gathering gathering = new Gathering(request.subject(), request.description(), request.maxMembers(), member);
         gatheringRepository.save(gathering);
         return new GatheringInfoResDto(gathering.getSubject(), gathering.getDescription(), gathering.getMaxMembers(), member.getName(), member.getId());
+    }
+
+    public GatheringInfoResDto entryGathering(Long memberId, Long gatheringId) {
+        Member member = memberQueryService.getMember(memberId);
+
     }
 }

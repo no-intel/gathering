@@ -1,4 +1,4 @@
-package org.noint.gathering.domain.gathering.repository;
+package org.noint.gathering.domain.gathering.repository.gathering;
 
 import org.noint.gathering.entity.Gathering;
 import org.springframework.data.jpa.repository.JpaRepository;

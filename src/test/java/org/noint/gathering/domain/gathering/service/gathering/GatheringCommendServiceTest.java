@@ -1,10 +1,10 @@
-package org.noint.gathering.domain.gathering.service;
+package org.noint.gathering.domain.gathering.service.gathering;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.noint.gathering.domain.gathering.dto.request.GatheringReqDto;
-import org.noint.gathering.domain.gathering.dto.response.GatheringInfoResDto;
+import org.noint.gathering.domain.gathering.dto.gathering.request.GatheringReqDto;
+import org.noint.gathering.domain.gathering.dto.gathering.response.GatheringInfoResDto;
 import org.noint.gathering.domain.member.dto.request.RegisterReqDto;
 import org.noint.gathering.domain.member.service.MemberCommendService;
 import org.springframework.beans.factory.annotation.Autowired;

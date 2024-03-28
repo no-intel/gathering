@@ -1,4 +1,4 @@
-package org.noint.gathering.domain.gathering.dto.response;
+package org.noint.gathering.domain.gathering.dto.gathering.response;
 
 public record GatheringInfoResDto(
         String subject,
