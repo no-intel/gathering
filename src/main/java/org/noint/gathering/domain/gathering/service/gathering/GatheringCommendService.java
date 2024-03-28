@@ -10,9 +10,11 @@ import org.noint.gathering.domain.member.service.MemberQueryService;
 import org.noint.gathering.entity.Gathering;
 import org.noint.gathering.entity.Member;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class GatheringCommendService {
 
