@@ -1,6 +1,8 @@
 package org.noint.gathering.domain.gathering.service.participant;
 
 import lombok.RequiredArgsConstructor;
+import org.noint.gathering.domain.gathering.enums.gathering.GatheringExceptionBody;
+import org.noint.gathering.domain.gathering.exception.gathering.GatheringException;
 import org.noint.gathering.domain.gathering.repository.participant.ParticipantRepository;
 import org.noint.gathering.entity.Gathering;
 import org.noint.gathering.entity.Member;
@@ -13,9 +15,18 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ParticipantCommendService {
 
+    private final ParticipantQueryService participantQueryService;
+
     private final ParticipantRepository participantRepository;
 
     public void register(Member member, Gathering gathering) {
+        checkDuplicateEntry(member, gathering);
         participantRepository.save(new Participant(gathering, member));
+    }
+
+    private void checkDuplicateEntry(Member member, Gathering gathering) {
+        if (participantQueryService.isEntry(gathering, member)) {
+            throw new GatheringException(GatheringExceptionBody.ALREADY_ENTRY);
+        }
     }
 }

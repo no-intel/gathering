@@ -30,6 +30,7 @@ public class GatheringCommendService {
         Member member = memberQueryService.getMember(memberId);
         Gathering gathering = new Gathering(request.subject(), request.description(), request.maxMembers(), member);
         gatheringRepository.save(gathering);
+        participantCommendService.register(member, gathering);
         return new GatheringInfoResDto(gathering.getSubject(), gathering.getDescription(), gathering.getMaxMembers(), member.getName(), member.getId());
     }
 

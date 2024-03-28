@@ -1,9 +1,12 @@
 package org.noint.gathering.domain.gathering.service.participant;
 
 import org.assertj.core.api.Assertions;
+import org.assertj.core.api.ThrowableAssert;
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.noint.gathering.domain.gathering.dto.gathering.request.GatheringReqDto;
+import org.noint.gathering.domain.gathering.exception.gathering.GatheringException;
 import org.noint.gathering.domain.gathering.repository.participant.ParticipantRepository;
 import org.noint.gathering.domain.gathering.service.gathering.GatheringCommendService;
 import org.noint.gathering.domain.gathering.service.gathering.GatheringQueryService;
@@ -20,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 @Transactional
@@ -57,5 +61,18 @@ class ParticipantCommendServiceTest {
         assertThat(participants.size()).isEqualTo(1);
         assertThat(participants.getFirst().getMember()).isEqualTo(member);
         assertThat(participants.getFirst().getGathering()).isEqualTo(gathering);
+    }
+
+    @Test
+    void 모임_참가_중복_실패() throws Exception {
+        //given
+        Member member = memberQueryService.getMember(1L);
+        Gathering gathering = gatheringQueryService.getGathering(1L);
+
+        //when
+        ThrowingCallable throwable = () -> participantCommendService.register(member, gathering);
+
+        //then
+        assertThatThrownBy(throwable).isInstanceOf(GatheringException.class);
     }
 }
