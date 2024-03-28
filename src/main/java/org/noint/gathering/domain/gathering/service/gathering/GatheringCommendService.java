@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.noint.gathering.domain.gathering.dto.gathering.request.GatheringReqDto;
 import org.noint.gathering.domain.gathering.dto.gathering.response.GatheringInfoResDto;
 import org.noint.gathering.domain.gathering.repository.gathering.GatheringRepository;
+import org.noint.gathering.domain.gathering.service.participant.ParticipantCommendService;
 import org.noint.gathering.domain.member.service.MemberQueryService;
 import org.noint.gathering.entity.Gathering;
 import org.noint.gathering.entity.Member;
@@ -17,7 +18,11 @@ public class GatheringCommendService {
 
     private final GatheringRepository gatheringRepository;
 
+    private final GatheringQueryService gatheringQueryService;
+
     private final MemberQueryService memberQueryService;
+
+    private final ParticipantCommendService participantCommendService;
 
     public GatheringInfoResDto createGathering(Long memberId, GatheringReqDto request) {
         Member member = memberQueryService.getMember(memberId);
@@ -28,6 +33,9 @@ public class GatheringCommendService {
 
     public GatheringInfoResDto entryGathering(Long memberId, Long gatheringId) {
         Member member = memberQueryService.getMember(memberId);
-
+        Gathering gathering = gatheringQueryService.getGathering(gatheringId);
+        participantCommendService.register(member, gathering);
+        gathering.entryGathering();
+        return new GatheringInfoResDto(gathering.getSubject(), gathering.getSubject(), gathering.getMaxMembers(), member.getName(), memberId);
     }
 }
