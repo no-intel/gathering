@@ -21,8 +21,8 @@ public class GatheringCommendService {
 
     public GatheringInfoResDto createGathering(Long memberId, GatheringReqDto request) {
         Member member = memberQueryService.getMember(memberId);
-        Gathering gathering = new Gathering(request.subject(), request.description(), request.max(), member);
+        Gathering gathering = new Gathering(request.subject(), request.description(), request.maxMembers(), member);
         gatheringRepository.save(gathering);
-        return new GatheringInfoResDto(gathering.getSubject(), gathering.getDescription(), gathering.getMax(), member.getName(), member.getId());
+        return new GatheringInfoResDto(gathering.getSubject(), gathering.getDescription(), gathering.getMaxMembers(), member.getName(), member.getId());
     }
 }

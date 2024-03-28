@@ -43,6 +43,6 @@ class GatheringCommendServiceTest {
         //then
         assertThat(gatheringInfo.creatorId()).isEqualTo(memberId);
         assertThat(gatheringInfo.subject()).isEqualTo(request.subject());
-        assertThat(gatheringInfo.max()).isEqualTo(request.max());
+        assertThat(gatheringInfo.maxMembers()).isEqualTo(request.maxMembers());
     }
 }
