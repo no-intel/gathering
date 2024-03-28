@@ -27,7 +27,7 @@ class GatheringCommendServiceTest {
     MemberCommendService memberCommendService;
 
     @BeforeAll
-    void beforeEach() {
+    void beforeAll() {
         memberCommendService.register(new RegisterReqDto("test1@b.c", "test1", "password1"));
     }
 
