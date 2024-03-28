@@ -7,7 +7,7 @@ import org.noint.gathering.domain.gathering.repository.participant.ParticipantRe
 import org.noint.gathering.entity.Gathering;
 import org.noint.gathering.entity.Member;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +20,7 @@ public class ParticipantQueryService {
 
     private final ParticipantQueryRepository participantQueryRepository;
 
-    public Page<ParticipantsResDto> getParticipants(Long gatheringId, PageRequest pageRequest) {
+    public Page<ParticipantsResDto> getParticipants(Long gatheringId, Pageable pageRequest) {
         return participantQueryRepository.findAllByGathering(gatheringId, pageRequest);
     }
 
