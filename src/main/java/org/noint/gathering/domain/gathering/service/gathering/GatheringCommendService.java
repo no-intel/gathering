@@ -31,11 +31,10 @@ public class GatheringCommendService {
         return new GatheringInfoResDto(gathering.getSubject(), gathering.getDescription(), gathering.getMaxMembers(), member.getName(), member.getId());
     }
 
-    public GatheringInfoResDto entryGathering(Long memberId, Long gatheringId) {
+    public void entryGathering(Long memberId, Long gatheringId) {
         Member member = memberQueryService.getMember(memberId);
         Gathering gathering = gatheringQueryService.getGathering(gatheringId);
         participantCommendService.register(member, gathering);
         gathering.entryGathering();
-        return new GatheringInfoResDto(gathering.getSubject(), gathering.getSubject(), gathering.getMaxMembers(), member.getName(), memberId);
     }
 }
