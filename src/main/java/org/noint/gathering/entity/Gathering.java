@@ -19,16 +19,19 @@ public class Gathering extends BaseTimeEntity {
 
     private String description;
 
-    private int max;
+    private int currentMembers;
+
+    private int maxMembers;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Gathering(String subject, String description, int max, Member member) {
+    public Gathering(String subject, String description, int maxMembers, Member member) {
         this.subject = subject;
         this.description = description;
-        this.max = max;
+        this.maxMembers = maxMembers;
         this.member = member;
+        this.currentMembers = 1;
     }
 }
