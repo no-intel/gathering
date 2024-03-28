@@ -41,6 +41,7 @@ public class GatheringController {
     @GetMapping("/participant/{gatheringId}")
     public ResponseEntity<Page<ParticipantsResDto>> getParticipants(@PathVariable("gatheringId") Long gatheringId,
                                                                     Pageable pageable) {
+        log.info("모임 참가자 조회 API");
         return new ResponseEntity<>(participantQueryService.getParticipants(gatheringId, pageable), HttpStatus.OK);
     }
 }
