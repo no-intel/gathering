@@ -20,6 +20,8 @@ public class MemberCommendService {
 
     private final MemberRepository memberRepository;
 
+    private final MemberQueryService memberQueryService;
+
     private final PasswordEncoder passwordEncoder;
 
     public Long register(RegisterReqDto request) {
@@ -30,8 +32,7 @@ public class MemberCommendService {
     }
 
     public void resign(Long memberId) {
-        Member findMember = memberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberException(NOT_FOUND_MEMBER));
+        Member findMember = memberQueryService.getMember(memberId);
         findMember.resign();
     }
 

@@ -47,8 +47,12 @@ public class MemberQueryService {
     }
 
     public MyInfoResDto myInfo(Long memberId) {
-        Member findMember = memberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberException(NOT_FOUND_MEMBER));
+        Member findMember = getMember(memberId);
         return new MyInfoResDto(findMember.getId(), findMember.getEmail(), findMember.getName(), findMember.getMoney());
+    }
+
+    public Member getMember(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(NOT_FOUND_MEMBER));
     }
 }
