@@ -1,12 +1,10 @@
 package org.noint.gathering.domain.gathering.service.participant;
 
-import org.assertj.core.api.Assertions;
-import org.assertj.core.api.ThrowableAssert;
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.noint.gathering.domain.gathering.dto.gathering.request.GatheringReqDto;
-import org.noint.gathering.domain.gathering.exception.gathering.GatheringException;
+import org.noint.gathering.domain.gathering.dto.request.GatheringReqDto;
+import org.noint.gathering.domain.gathering.exception.GatheringException;
 import org.noint.gathering.domain.gathering.repository.participant.ParticipantRepository;
 import org.noint.gathering.domain.gathering.service.gathering.GatheringCommendService;
 import org.noint.gathering.domain.gathering.service.gathering.GatheringQueryService;

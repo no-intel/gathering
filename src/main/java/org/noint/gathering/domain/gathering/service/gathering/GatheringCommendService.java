@@ -2,8 +2,8 @@ package org.noint.gathering.domain.gathering.service.gathering;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.noint.gathering.domain.gathering.dto.gathering.request.GatheringReqDto;
-import org.noint.gathering.domain.gathering.dto.gathering.response.GatheringInfoResDto;
+import org.noint.gathering.domain.gathering.dto.request.GatheringReqDto;
+import org.noint.gathering.domain.gathering.dto.response.GatheringInfoResDto;
 import org.noint.gathering.domain.gathering.repository.gathering.GatheringRepository;
 import org.noint.gathering.domain.gathering.service.participant.ParticipantCommendService;
 import org.noint.gathering.domain.member.service.MemberQueryService;

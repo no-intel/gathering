@@ -1,4 +1,4 @@
-package org.noint.gathering.domain.gathering.dto.gathering.request;
+package org.noint.gathering.domain.gathering.dto.request;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

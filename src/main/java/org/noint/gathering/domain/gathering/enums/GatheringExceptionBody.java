@@ -1,4 +1,4 @@
-package org.noint.gathering.domain.gathering.enums.gathering;
+package org.noint.gathering.domain.gathering.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

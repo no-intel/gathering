@@ -1,8 +1,8 @@
 package org.noint.gathering.domain.gathering.service.participant;
 
 import lombok.RequiredArgsConstructor;
-import org.noint.gathering.domain.gathering.enums.gathering.GatheringExceptionBody;
-import org.noint.gathering.domain.gathering.exception.gathering.GatheringException;
+import org.noint.gathering.domain.gathering.enums.GatheringExceptionBody;
+import org.noint.gathering.domain.gathering.exception.GatheringException;
 import org.noint.gathering.domain.gathering.repository.participant.ParticipantRepository;
 import org.noint.gathering.entity.Gathering;
 import org.noint.gathering.entity.Member;

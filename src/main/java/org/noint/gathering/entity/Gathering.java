@@ -5,11 +5,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.noint.gathering.domain.gathering.enums.gathering.GatheringExceptionBody;
-import org.noint.gathering.domain.gathering.exception.gathering.GatheringException;
+import org.noint.gathering.domain.gathering.exception.GatheringException;
 
 import static jakarta.persistence.FetchType.LAZY;
-import static org.noint.gathering.domain.gathering.enums.gathering.GatheringExceptionBody.CAPACITY_EXCEEDED;
+import static org.noint.gathering.domain.gathering.enums.GatheringExceptionBody.CAPACITY_EXCEEDED;
 
 @Slf4j
 @Entity
