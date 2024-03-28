@@ -1,8 +1,10 @@
 package org.noint.gathering.domain.member.service;
 
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.noint.gathering.domain.member.dto.request.RegisterReqDto;
 import org.noint.gathering.domain.member.exception.MemberException;
 import org.noint.gathering.domain.member.repository.MemberRepository;
@@ -10,12 +12,15 @@ import org.noint.gathering.entity.Member;
 import org.noint.gathering.entity.MemberStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ActiveProfiles("test")
 @Transactional
 class MemberCommendServiceTest {
 
@@ -23,9 +28,12 @@ class MemberCommendServiceTest {
     MemberCommendService memberCommendService;
 
     @Autowired
+    MemberQueryService memberQueryService;
+
+    @Autowired
     MemberRepository memberRepository;
 
-    @BeforeEach
+    @BeforeAll
     void beforeEach() {
         memberCommendService.register(new RegisterReqDto("test1@b.c", "test1", "password1"));
     }
