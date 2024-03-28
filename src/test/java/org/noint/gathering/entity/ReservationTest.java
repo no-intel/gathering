@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,13 +30,13 @@ class ReservationTest {
         em.persist(diamondRoom);
         TimeSlot time = new TimeSlot("10:00 ~ 11:50");
         em.persist(time);
-        RoomSchedule newSchedule = new RoomSchedule(diamondRoom, time);
+        RoomSchedule newSchedule = new RoomSchedule(LocalDate.now(), diamondRoom, time);
         em.persist(newSchedule);
         Member user = new Member("a@b.c", "유저", "password");
         em.persist(user);
         Gathering newGathering = new Gathering("모각코", "각자 모여 코딩합시다", 4, user);
         em.persist(newGathering);
-        Reservation newReservation = new Reservation("request_id", newGathering, newSchedule);
+        Reservation newReservation = new Reservation(newGathering, newSchedule);
         em.persist(newReservation);
 
         em.flush();

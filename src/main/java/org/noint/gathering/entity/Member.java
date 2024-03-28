@@ -15,20 +15,29 @@ import static org.noint.gathering.entity.MemberStatus.REGISTERED;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(uniqueConstraints = {
+        @UniqueConstraint(name = "UQ_email", columnNames = {"email"}),
+        @UniqueConstraint(name = "UQ_name", columnNames = {"name"})
+})
 public class Member extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long Id;
 
+    @Column(length = 30, nullable = false)
     private String email;
 
+    @Column(length = 10, nullable = false)
     private String name;
 
+    @Column(length = 100, nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private MemberStatus status;
 
+    @Column(precision = 6, scale = 0, nullable = false)
     private BigDecimal money;
 
     public Member(String email, String name, String password) {

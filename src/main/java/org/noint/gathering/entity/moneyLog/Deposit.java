@@ -1,8 +1,6 @@
 package org.noint.gathering.entity.moneyLog;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +16,7 @@ import static jakarta.persistence.FetchType.LAZY;
 public class Deposit extends MoneyLog {
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "sender_member_id")
+    @JoinColumn(name = "sender_member_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT), nullable = false)
     private Member sender;
 
     public Deposit(BigDecimal amount, BigDecimal totalMoney, Member member, Member sender) {

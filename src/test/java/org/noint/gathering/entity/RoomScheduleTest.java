@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,7 +29,7 @@ class RoomScheduleTest {
         em.persist(diamondRoom);
         TimeSlot time = new TimeSlot("10:00 ~ 11:50");
         em.persist(time);
-        RoomSchedule newSchedule = new RoomSchedule(diamondRoom, time);
+        RoomSchedule newSchedule = new RoomSchedule(LocalDate.now(), diamondRoom, time);
         em.persist(newSchedule);
         em.flush();
         em.clear();

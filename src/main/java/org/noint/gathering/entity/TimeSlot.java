@@ -13,6 +13,7 @@ public class TimeSlot extends BaseTimeEntity {
     @Column(name = "time_slot_id")
     private Long id;
 
+    @Column(length = 100, nullable = false)
     private String time;
 
     public TimeSlot(String time) {

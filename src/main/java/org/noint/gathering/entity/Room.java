@@ -15,15 +15,18 @@ public class Room extends BaseTimeEntity {
     @Column(name = "room_id")
     private Long id;
 
+    @Column(length = 100, nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private int capacity;
 
-    private BigDecimal hourlyRate;
+    @Column(precision = 6, scale = 0, nullable = false)
+    private BigDecimal timeRate;
 
-    public Room(String name, int capacity, BigDecimal hourlyRate) {
+    public Room(String name, int capacity, BigDecimal timeRate) {
         this.name = name;
         this.capacity = capacity;
-        this.hourlyRate = hourlyRate;
+        this.timeRate = timeRate;
     }
 }
