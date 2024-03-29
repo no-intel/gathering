@@ -58,6 +58,7 @@ public class GatheringController {
     public ResponseEntity<Void> writeComment(@RequestAttribute("memberId") Long memberId,
                                              @PathVariable("gatheringId") Long gatheringId,
                                              @Valid @RequestBody CommentBodyReqDto request) {
+        log.info("모임 댓글 작성 API");
         commentCommendService.writeComment(memberId, gatheringId, request.body());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -66,6 +67,16 @@ public class GatheringController {
     public ResponseEntity<Slice<CommentsResDto>> getComments(@RequestAttribute("memberId") Long memberId,
                                                              @PathVariable("gatheringId") Long gatheringId,
                                                              Pageable pageable) {
+        log.info("모임 댓글 조회 API");
         return new ResponseEntity<>(commentQueryService.getComments(memberId, gatheringId, pageable), HttpStatus.OK);
+    }
+
+    @PatchMapping("/comment/{commentId}")
+    public ResponseEntity<Slice<CommentsResDto>> updateComment(@RequestAttribute("memberId") Long memberId,
+                                                             @PathVariable("commentId") Long commentId,
+                                                             @Valid @RequestBody CommentBodyReqDto request) {
+        log.info("모임 댓글 수정 API");
+        commentCommendService.updateComment(memberId, commentId, request.body());
+        return ResponseEntity.noContent().build();
     }
 }
