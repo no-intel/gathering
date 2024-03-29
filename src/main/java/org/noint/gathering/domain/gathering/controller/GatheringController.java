@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.noint.gathering.domain.gathering.dto.request.GatheringReqDto;
-import org.noint.gathering.domain.gathering.dto.request.WriteCommentReqDto;
+import org.noint.gathering.domain.gathering.dto.request.CommentBodyReqDto;
 import org.noint.gathering.domain.gathering.dto.response.CommentsResDto;
 import org.noint.gathering.domain.gathering.dto.response.GatheringInfoResDto;
 import org.noint.gathering.domain.gathering.dto.response.ParticipantsResDto;
@@ -57,7 +57,7 @@ public class GatheringController {
     @PostMapping("/comment/{gatheringId}")
     public ResponseEntity<Void> writeComment(@RequestAttribute("memberId") Long memberId,
                                              @PathVariable("gatheringId") Long gatheringId,
-                                             @Valid @RequestBody WriteCommentReqDto request) {
+                                             @Valid @RequestBody CommentBodyReqDto request) {
         commentCommendService.writeComment(memberId, gatheringId, request.body());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

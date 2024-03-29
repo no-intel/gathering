@@ -11,6 +11,7 @@ public enum GatheringExceptionBody implements ExceptionBody {
     CAPACITY_EXCEEDED(400, "참가 인원 초과"),
     ALREADY_ENTRY(400, "이미 참가 중인 모임 입니다."),
     FORBIDDEN(403, "권한이 없습니다."),
+    NOT_FOUND_COMMENT(404, "댓글을 찾을 수 없습니다.")
     ;
 
     private final int code;

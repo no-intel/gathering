@@ -34,4 +34,8 @@ public class Comment extends BaseTimeEntity {
         this.gathering = gathering;
         this.member = member;
     }
+
+    public void updateComment(String body) {
+        this.body = body;
+    }
 }
