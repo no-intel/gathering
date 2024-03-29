@@ -39,10 +39,10 @@ public class CommentCommendService {
         commentRepository.save(new Comment(body, gathering, member));
     }
 
-    public void updateComment(Long memberId, Long commentId, CommentBodyReqDto request) {
+    public void updateComment(Long memberId, Long commentId, String body) {
         Comment comment = commentQueryService.getComment(commentId);
         checkWriteMember(memberId, comment);
-        comment.updateComment(request.body());
+        comment.updateComment(body);
     }
 
     private void checkWriteMember(Long memberId, Comment comment) {

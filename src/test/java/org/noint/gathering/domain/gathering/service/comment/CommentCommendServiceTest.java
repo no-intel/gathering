@@ -100,7 +100,7 @@ class CommentCommendServiceTest {
         em.flush();
         em.clear();
 
-        commentCommendService.updateComment(memberId, 1L, new CommentBodyReqDto(newBody));
+        commentCommendService.updateComment(memberId, 1L, newBody);
         em.flush();
         em.clear();
 
@@ -130,7 +130,7 @@ class CommentCommendServiceTest {
         em.flush();
         em.clear();
 
-        ThrowingCallable throwable = () -> commentCommendService.updateComment(2L, 1L, new CommentBodyReqDto(newBody));
+        ThrowingCallable throwable = () -> commentCommendService.updateComment(2L, 1L, newBody);
 
         //then
         assertThatThrownBy(throwable).isInstanceOf(GatheringException.class);
@@ -155,7 +155,7 @@ class CommentCommendServiceTest {
         em.flush();
         em.clear();
 
-        ThrowingCallable throwable = () -> commentCommendService.updateComment(memberId, 2L, new CommentBodyReqDto(newBody));
+        ThrowingCallable throwable = () -> commentCommendService.updateComment(memberId, 2L, newBody);
 
         //then
         assertThatThrownBy(throwable).isInstanceOf(GatheringException.class);
