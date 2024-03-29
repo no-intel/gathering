@@ -1,18 +1,20 @@
 package org.noint.gathering.domain.gathering.controller;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.noint.gathering.domain.gathering.dto.request.GatheringReqDto;
 import org.noint.gathering.domain.gathering.dto.request.WriteCommentReqDto;
+import org.noint.gathering.domain.gathering.dto.response.CommentsResDto;
 import org.noint.gathering.domain.gathering.dto.response.GatheringInfoResDto;
 import org.noint.gathering.domain.gathering.dto.response.ParticipantsResDto;
 import org.noint.gathering.domain.gathering.service.comment.CommentCommendService;
+import org.noint.gathering.domain.gathering.service.comment.CommentQueryService;
 import org.noint.gathering.domain.gathering.service.gathering.GatheringCommendService;
 import org.noint.gathering.domain.gathering.service.participant.ParticipantQueryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,8 @@ public class GatheringController {
     private final ParticipantQueryService participantQueryService;
 
     private final CommentCommendService commentCommendService;
+
+    private final CommentQueryService commentQueryService;
 
     @PostMapping("/gathering")
     public ResponseEntity<GatheringInfoResDto> createGathering(@RequestAttribute("memberId") Long memberId,
@@ -56,5 +60,12 @@ public class GatheringController {
                                              @Valid @RequestBody WriteCommentReqDto request) {
         commentCommendService.writeComment(memberId, gatheringId, request.body());
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/comment/{gatheringId}")
+    public ResponseEntity<Slice<CommentsResDto>> getComments(@RequestAttribute("memberId") Long memberId,
+                                                             @PathVariable("gatheringId") Long gatheringId,
+                                                             Pageable pageable) {
+        return new ResponseEntity<>(commentQueryService.getComments(memberId, gatheringId, pageable), HttpStatus.OK);
     }
 }
