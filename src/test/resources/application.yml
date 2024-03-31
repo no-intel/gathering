@@ -1,7 +1,6 @@
 spring:
   profiles:
     active: test
-
   datasource:
     url: jdbc:h2:tcp://localhost/~/test;MODE=MySQL;
     username: sa
@@ -16,6 +15,7 @@ spring:
 #        format_sql: true
 #        use_sql_comments: true
         dialect: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true
   data:
     web:
       pageable:
@@ -23,5 +23,10 @@ spring:
         max-page-size: 2000
 
   logging.level:
-    org.hibernate.SQL: debug
+    org.hibernate.SQL:
   # org.hibernate.type: trace
+
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
