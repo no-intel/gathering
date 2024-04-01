@@ -3,6 +3,7 @@ package org.noint.gathering.domain.reservation.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.noint.gathering.domain.reservation.dto.request.CancelReservationReqDto;
 import org.noint.gathering.domain.reservation.dto.request.ReserveGatheringReqDto;
 import org.noint.gathering.domain.reservation.dto.response.RoomScheduleResDto;
 import org.noint.gathering.domain.reservation.service.ReservationCommendService;
@@ -35,5 +36,13 @@ public class ReservationController {
         log.info("모임 예약 API");
         reservationCommendService.reserveGathering(memberId, request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("/reservation")
+    public ResponseEntity<Void> cancelReservation(@RequestAttribute("memberId") Long memberId,
+                                                  @Valid @RequestBody CancelReservationReqDto request) {
+        log.info("모임 예약 취소 API");
+        reservationCommendService.cancelReservation(memberId, request.requestId());
+        return ResponseEntity.noContent().build();
     }
 }

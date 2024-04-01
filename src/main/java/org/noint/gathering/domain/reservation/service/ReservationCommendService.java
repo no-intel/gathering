@@ -3,7 +3,6 @@ package org.noint.gathering.domain.reservation.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.noint.gathering.domain.gathering.service.gathering.GatheringQueryService;
-import org.noint.gathering.domain.member.exception.MemberException;
 import org.noint.gathering.domain.reservation.dto.request.ReserveGatheringReqDto;
 import org.noint.gathering.domain.reservation.exception.ReservationException;
 import org.noint.gathering.domain.reservation.repository.ReservationRepository;
