@@ -3,10 +3,12 @@ package org.noint.gathering.domain.reservation.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.noint.gathering.domain.gathering.service.gathering.GatheringQueryService;
+import org.noint.gathering.domain.member.exception.MemberException;
 import org.noint.gathering.domain.reservation.dto.request.ReserveGatheringReqDto;
 import org.noint.gathering.domain.reservation.exception.ReservationException;
 import org.noint.gathering.domain.reservation.repository.ReservationRepository;
 import org.noint.gathering.entity.Gathering;
+import org.noint.gathering.entity.Progress;
 import org.noint.gathering.entity.Reservation;
 import org.noint.gathering.entity.RoomSchedule;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,25 @@ public class ReservationCommendService {
         }
 
         reservationRepository.saveAll(reservations);
+    }
+
+    public void cancelReservation(Long memberId, String requestId) {
+        List<Reservation> reservations = reservationQueryService.getAllByRequestId(requestId);
+        checkCancelAble(memberId, reservations);
+
+        reservations.forEach(reservation -> reservation.updateProgress(Progress.CANCELED));
+    }
+
+    private void checkCancelAble(Long memberId, List<Reservation> reservations) {
+        if (reservations.isEmpty()) {
+            log.info("예약 요청 ID를 찾을 수 없습니다.");
+            throw new ReservationException(WRONG_REQUEST_ID);
+        }
+        boolean isGatheringCreator = reservations.getFirst().getGathering().getMember().getId().equals(memberId);
+        if (!isGatheringCreator) {
+            log.info("예약 취소는 모임 개설자만 가능합니다.");
+            throw new ReservationException(FORBIDDEN);
+        }
     }
 
     private void checkDuplicateRequest(ReserveGatheringReqDto request) {

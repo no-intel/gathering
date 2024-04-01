@@ -59,7 +59,7 @@ public class ReservationQueryService {
     }
 
     public List<Reservation> getAllByRequestId(String requestId) {
-        return reservationRepository.findAllByRequestId(requestId);
+        return reservationQueryRepository.findAllByRequestId(requestId);
     }
 
     private static void checkDateRange(LocalDate date) {

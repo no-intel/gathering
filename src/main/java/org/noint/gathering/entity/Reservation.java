@@ -42,4 +42,8 @@ public class Reservation extends BaseTimeEntity {
         this.gathering = gathering;
         this.roomSchedule = roomSchedule;
     }
+
+    public void updateProgress(Progress progress) {
+        this.progress = progress;
+    }
 }

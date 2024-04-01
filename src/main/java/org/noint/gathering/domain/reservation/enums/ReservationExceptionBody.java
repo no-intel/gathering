@@ -12,6 +12,7 @@ public enum ReservationExceptionBody implements ExceptionBody {
     UNAVAILABLE_RESERVE(400, "예약이 불가능 합니다."),
     FORBIDDEN(403, "권한이 없습니다."),
     DUPLICATE_REQUEST(400, "중복된 요청 입니다."),
+    WRONG_REQUEST_ID(404, "요청 ID를 찾을 수 없습니다.")
     ;
 
     private final int code;
