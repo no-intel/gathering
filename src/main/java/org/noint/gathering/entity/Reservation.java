@@ -21,6 +21,7 @@ public class Reservation extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
+    @Enumerated
     private Progress progress;
 
     @ManyToOne(fetch = LAZY)
