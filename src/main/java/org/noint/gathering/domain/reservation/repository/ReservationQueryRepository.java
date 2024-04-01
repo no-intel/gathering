@@ -26,7 +26,6 @@ public class ReservationQueryRepository {
     public List<RoomScheduleResDto> findRoomSchedule(LocalDate date) {
         return queryFactory
                 .select(new QRoomScheduleResDto(
-
                         roomSchedule.id,
                         room.id,
                         room.name,
@@ -40,7 +39,7 @@ public class ReservationQueryRepository {
                 .innerJoin(roomSchedule.room, room)
                 .innerJoin(roomSchedule.timeSlot, timeSlot)
                 .where(roomSchedule.date.eq(date))
-                .orderBy(timeSlot.id.asc(), room.timeRate.desc())
+                .orderBy(room.timeRate.desc(), timeSlot.id.asc())
                 .fetch();
     }
 }
