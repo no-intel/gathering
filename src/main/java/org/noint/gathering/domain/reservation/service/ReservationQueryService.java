@@ -6,6 +6,8 @@ import org.noint.gathering.domain.reservation.dto.response.RoomScheduleResDto;
 import org.noint.gathering.domain.reservation.exception.ReservationException;
 import org.noint.gathering.domain.reservation.repository.ReservationQueryRepository;
 import org.noint.gathering.domain.reservation.repository.RoomScheduleRepository;
+import org.noint.gathering.entity.Gathering;
+import org.noint.gathering.entity.Reservation;
 import org.noint.gathering.entity.RoomSchedule;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,5 +57,9 @@ public class ReservationQueryService {
             log.info("검색 가능한 날짜를 벗어 났습니다.");
             throw new ReservationException(OUT_OF_RANGE_DATE);
         }
+    }
+
+    public List<Reservation> getAllByGatheringOrRoomSchedules(Gathering gathering, List<RoomSchedule> roomSchedules) {
+        return reservationQueryRepository.findAllByGatheringOrRoomSchedules(gathering, roomSchedules);
     }
 }
