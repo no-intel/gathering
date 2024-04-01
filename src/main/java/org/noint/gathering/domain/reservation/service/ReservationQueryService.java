@@ -2,7 +2,6 @@ package org.noint.gathering.domain.reservation.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.noint.gathering.domain.reservation.dto.request.RoomScheduleReqDto;
 import org.noint.gathering.domain.reservation.dto.response.RoomScheduleResDto;
 import org.noint.gathering.domain.reservation.exception.ReservationException;
 import org.noint.gathering.domain.reservation.repository.ReservationQueryRepository;
@@ -27,8 +26,7 @@ public class ReservationQueryService {
     private final static Integer MIN_RANGE_VAL = 1;
 
 
-    public List<RoomScheduleResDto> getDayRoomSchedule(RoomScheduleReqDto request) {
-        LocalDate date = request.date();
+    public List<RoomScheduleResDto> getDayRoomSchedule(LocalDate date) {
         checkDateRange(date);
         return reservationQueryRepository.findRoomSchedule(date);
     }
