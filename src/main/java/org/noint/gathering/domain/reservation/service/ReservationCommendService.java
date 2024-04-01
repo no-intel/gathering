@@ -15,8 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.noint.gathering.domain.reservation.enums.ReservationExceptionBody.FORBIDDEN;
-import static org.noint.gathering.domain.reservation.enums.ReservationExceptionBody.UNAVAILABLE_RESERVE;
+import static org.noint.gathering.domain.reservation.enums.ReservationExceptionBody.*;
 
 @Slf4j
 @Service
@@ -31,6 +30,7 @@ public class ReservationCommendService {
     private final ReservationQueryService reservationQueryService;
 
     public void reserveGathering(Long memberId, ReserveGatheringReqDto request) {
+        checkDuplicateRequest(request);
         Gathering gathering = gatheringQueryService.getGathering(request.gatheringId());
         checkPermission(memberId, gathering);
         List<RoomSchedule> roomSchedules = reservationQueryService.getRoomSchedules(request.roomScheduleIds());
@@ -38,10 +38,18 @@ public class ReservationCommendService {
 
         List<Reservation> reservations = new ArrayList<>();
         for (RoomSchedule roomSchedule : roomSchedules) {
-            reservations.add(new Reservation(gathering, roomSchedule));
+            reservations.add(new Reservation(request.requestId(), gathering, roomSchedule));
         }
 
         reservationRepository.saveAll(reservations);
+    }
+
+    private void checkDuplicateRequest(ReserveGatheringReqDto request) {
+        List<Reservation> reservations = reservationQueryService.getAllByRequestId(request.requestId());
+        if (!reservations.isEmpty()) {
+            log.warn("모임 예약 요청 중복");
+            throw new ReservationException(DUPLICATE_REQUEST);
+        }
     }
 
     private void checkPermission(Long memberId, Gathering gathering) {

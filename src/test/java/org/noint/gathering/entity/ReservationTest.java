@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.noint.gathering.entity.QReservation.reservation;
@@ -36,7 +37,7 @@ class ReservationTest {
         em.persist(user);
         Gathering newGathering = new Gathering("모각코", "각자 모여 코딩합시다", 4, user);
         em.persist(newGathering);
-        Reservation newReservation = new Reservation(newGathering, newSchedule);
+        Reservation newReservation = new Reservation(UUID.randomUUID().toString(), newGathering, newSchedule);
         em.persist(newReservation);
 
         em.flush();

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.noint.gathering.domain.reservation.dto.response.RoomScheduleResDto;
 import org.noint.gathering.domain.reservation.exception.ReservationException;
 import org.noint.gathering.domain.reservation.repository.ReservationQueryRepository;
+import org.noint.gathering.domain.reservation.repository.ReservationRepository;
 import org.noint.gathering.domain.reservation.repository.RoomScheduleRepository;
 import org.noint.gathering.entity.Gathering;
 import org.noint.gathering.entity.Reservation;
@@ -28,6 +29,8 @@ public class ReservationQueryService {
 
     private final RoomScheduleRepository roomScheduleRepository;
 
+    private final ReservationRepository reservationRepository;
+
     private final static Integer MAX_RANGE_VAL = 7;
 
     private final static Integer MIN_RANGE_VAL = 1;
@@ -49,6 +52,14 @@ public class ReservationQueryService {
             throw new ReservationException(NOT_FOUND_ROOM_SCHEDULE);
         }
         return roomSchedules;
+
+    }
+    public List<Reservation> getAllByGatheringOrRoomSchedules(Gathering gathering, List<RoomSchedule> roomSchedules) {
+        return reservationQueryRepository.findAllByGatheringOrRoomSchedules(gathering, roomSchedules);
+    }
+
+    public List<Reservation> getAllByRequestId(String requestId) {
+        return reservationRepository.findAllByRequestId(requestId);
     }
 
     private static void checkDateRange(LocalDate date) {
@@ -59,7 +70,4 @@ public class ReservationQueryService {
         }
     }
 
-    public List<Reservation> getAllByGatheringOrRoomSchedules(Gathering gathering, List<RoomSchedule> roomSchedules) {
-        return reservationQueryRepository.findAllByGatheringOrRoomSchedules(gathering, roomSchedules);
-    }
 }

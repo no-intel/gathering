@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -47,6 +48,7 @@ class ReservationQueryRepositoryTest {
     void 예약_목록_조회_By_모임_OR_룸_스케줄() throws Exception {
         //given
         Long gatheringId = 1L;
+        String requestId = UUID.randomUUID().toString();
         List<Long> roomScheduleIds = new ArrayList<>() {{
             add(1L);
             add(2L);
@@ -57,7 +59,7 @@ class ReservationQueryRepositoryTest {
         Gathering gathering = gatheringQueryService.getGathering(gatheringId);
         List<RoomSchedule> roomSchedules = reservationQueryService.getRoomSchedules(roomScheduleIds);
 
-        reservationRepository.save(new Reservation(gathering, roomSchedules.getFirst()));
+        reservationRepository.save(new Reservation(requestId, gathering, roomSchedules.getFirst()));
 
         //when
         List<Reservation> reservations = reservationQueryService.getAllByGatheringOrRoomSchedules(gathering, roomSchedules);

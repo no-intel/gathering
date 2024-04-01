@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.noint.gathering.entity.moneyLog.QMoneyLog.moneyLog;
@@ -55,7 +56,7 @@ class MoneyLogTest {
         em.persist(newSchedule);
         Gathering newGathering = new Gathering("모각코", "각자 모여 코딩합시다", 4, user1);
         em.persist(newGathering);
-        Reservation newReservation = new Reservation(newGathering, newSchedule);
+        Reservation newReservation = new Reservation(UUID.randomUUID().toString(), newGathering, newSchedule);
         em.persist(newReservation);
 
         MoneyLog reservationLog = new Reservations(BigDecimal.valueOf(10000), BigDecimal.valueOf(10000), user1, newReservation);
