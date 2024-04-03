@@ -34,7 +34,7 @@ public class ReservationCommendService {
         checkDuplicateRequest(request);
         Gathering gathering = gatheringQueryService.getGathering(request.gatheringId());
         checkPermission(memberId, gathering);
-        List<RoomSchedule> roomSchedules = reservationQueryService.getRoomSchedules(request.roomScheduleIds());
+        List<RoomSchedule> roomSchedules = reservationQueryService.getRoomSchedulesForUpdate(request.roomScheduleIds());
         checkAbleReserve(gathering, roomSchedules);
 
         List<Reservation> reservations = new ArrayList<>();

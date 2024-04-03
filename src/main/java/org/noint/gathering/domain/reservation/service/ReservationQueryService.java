@@ -54,6 +54,16 @@ public class ReservationQueryService {
         return roomSchedules;
 
     }
+
+    public List<RoomSchedule> getRoomSchedulesForUpdate(List<Long> roomScheduleIds) {
+        List<RoomSchedule> roomSchedules = roomScheduleRepository.findAllByIdForUpdate(roomScheduleIds);
+        if (roomSchedules.isEmpty()) {
+            throw new ReservationException(NOT_FOUND_ROOM_SCHEDULE);
+        }
+        return roomSchedules;
+
+    }
+
     public List<Reservation> getAllByGatheringOrRoomSchedules(Gathering gathering, List<RoomSchedule> roomSchedules) {
         return reservationQueryRepository.findAllByGatheringOrRoomSchedules(gathering, roomSchedules);
     }

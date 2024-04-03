@@ -57,7 +57,7 @@ class ReservationQueryRepositoryTest {
             add(5L);
         }};
         Gathering gathering = gatheringQueryService.getGathering(gatheringId);
-        List<RoomSchedule> roomSchedules = reservationQueryService.getRoomSchedules(roomScheduleIds);
+        List<RoomSchedule> roomSchedules = reservationQueryService.getRoomSchedulesForUpdate(roomScheduleIds);
 
         reservationRepository.save(new Reservation(requestId, gathering, roomSchedules.getFirst()));
 
