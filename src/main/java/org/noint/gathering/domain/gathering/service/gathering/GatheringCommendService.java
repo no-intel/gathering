@@ -2,6 +2,7 @@ package org.noint.gathering.domain.gathering.service.gathering;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.noint.gathering.annotation.Retry;
 import org.noint.gathering.domain.gathering.dto.request.GatheringReqDto;
 import org.noint.gathering.domain.gathering.dto.response.GatheringInfoResDto;
 import org.noint.gathering.domain.gathering.repository.gathering.GatheringRepository;
@@ -34,6 +35,7 @@ public class GatheringCommendService {
         return new GatheringInfoResDto(gathering.getSubject(), gathering.getDescription(), gathering.getMaxMembers(), member.getName(), member.getId());
     }
 
+    @Retry
     public void entryGathering(Long memberId, Long gatheringId) {
         Member member = memberQueryService.getMember(memberId);
         Gathering gathering = gatheringQueryService.getGathering(gatheringId);
