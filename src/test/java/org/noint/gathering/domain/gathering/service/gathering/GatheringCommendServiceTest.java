@@ -17,6 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
@@ -36,8 +42,8 @@ class GatheringCommendServiceTest {
 
     @BeforeEach
     void beforeEach() {
-        memberCommendService.register(new RegisterReqDto("test1@b.c", "test1", "password1"));
-        gatheringCommendService.createGathering(1L, new GatheringReqDto("모임 주제1", "설명1", 4));
+//        memberCommendService.register(new RegisterReqDto("test1@b.c", "test1", "password1"));
+//        gatheringCommendService.createGathering(1L, new GatheringReqDto("모임 주제1", "설명1", 4));
     }
 
     @Test
@@ -58,7 +64,7 @@ class GatheringCommendServiceTest {
     @Test
     void 모임_참가_성공() throws Exception {
         //given
-        Long memberId = 1L;
+        Long memberId = 2L;
         Long gatheringId = 1L;
 
         //when
@@ -71,6 +77,44 @@ class GatheringCommendServiceTest {
         assertThat(gathering.getCurrentMembers()).isEqualTo(2);
         assertThat(participant.getMember()).isEqualTo(member);
         assertThat(participant.getGathering()).isEqualTo(gathering);
+
+    }
+
+    @Test
+    void 모임_참가_동시성_성공() throws Exception {
+        //given
+        Long gatheringId = 1L;
+        int userThreads = 10;
+        CountDownLatch countDownLatch = new CountDownLatch(userThreads);
+        AtomicInteger successCount = new AtomicInteger();
+        AtomicInteger failCount = new AtomicInteger();
+
+        //when
+        try (ExecutorService executorService = Executors.newFixedThreadPool(userThreads)) {
+            for (int i = 0; i < userThreads; i++) {
+                Long memberId = (long) (i + 2);
+                executorService.execute(() -> {
+                    try {
+                        gatheringCommendService.entryGathering(memberId, gatheringId);
+                        successCount.getAndIncrement();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        failCount.getAndIncrement();
+                    } finally {
+                        countDownLatch.countDown();
+                    }
+                });
+            }
+            countDownLatch.await();
+        }
+        System.out.println("failCount = " + failCount);
+        System.out.println("successCount = " + successCount);
+
+        Gathering gathering = gatheringQueryService.getGathering(gatheringId);
+        List<Participant> participant = participantRepository.findAll();
+
+        //then
+        assertThat(gathering.getCurrentMembers()).isEqualTo(2);
 
     }
 

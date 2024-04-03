@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.ColumnDefault;
 import org.noint.gathering.domain.gathering.exception.GatheringException;
 
 import static jakarta.persistence.FetchType.LAZY;
@@ -28,6 +29,10 @@ public class Gathering extends BaseTimeEntity {
     @Column(length = 100, nullable = false)
     private String description;
 
+    @Version
+    @ColumnDefault(value = "0")
+    private int version;
+
     @Column(nullable = false)
     private int currentMembers;
 
@@ -44,6 +49,7 @@ public class Gathering extends BaseTimeEntity {
         this.maxMembers = maxMembers;
         this.member = member;
         this.currentMembers = 1;
+        this.version = 0;
     }
 
     public void entryGathering() {
