@@ -23,7 +23,7 @@ spring:
         max-page-size: 2000
 
   logging.level:
-    org.hibernate.SQL:
+    org.hibernate.SQL: debug
   # org.hibernate.type: trace
 
   sql:
