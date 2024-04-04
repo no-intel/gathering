@@ -1,5 +1,9 @@
 package org.noint.gathering.domain.reservation.dto.response;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.querydsl.core.annotations.QueryProjection;
 import org.noint.gathering.entity.AbleStatus;
 
@@ -14,6 +18,8 @@ public record RoomScheduleResDto(
         BigDecimal timeRate,
         Long timeSlotId,
         String time,
+        @JsonSerialize(using = LocalDateSerializer.class)
+        @JsonDeserialize(using = LocalDateDeserializer.class)
         LocalDate date,
         AbleStatus isAble
 ) {

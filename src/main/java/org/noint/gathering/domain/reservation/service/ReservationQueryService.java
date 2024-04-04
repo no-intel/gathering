@@ -10,6 +10,7 @@ import org.noint.gathering.domain.reservation.repository.RoomScheduleRepository;
 import org.noint.gathering.entity.Gathering;
 import org.noint.gathering.entity.Reservation;
 import org.noint.gathering.entity.RoomSchedule;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +37,7 @@ public class ReservationQueryService {
     private final static Integer MIN_RANGE_VAL = 1;
 
 
+    @Cacheable(key = "#date", value = "RoomScheduleResDto", cacheManager = "cacheManager")
     public List<RoomScheduleResDto> getDayRoomSchedule(LocalDate date) {
         checkDateRange(date);
         return reservationQueryRepository.findRoomSchedule(date);
