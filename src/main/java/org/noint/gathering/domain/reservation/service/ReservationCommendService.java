@@ -6,10 +6,7 @@ import org.noint.gathering.domain.gathering.service.gathering.GatheringQueryServ
 import org.noint.gathering.domain.reservation.dto.request.ReserveGatheringReqDto;
 import org.noint.gathering.domain.reservation.exception.ReservationException;
 import org.noint.gathering.domain.reservation.repository.ReservationRepository;
-import org.noint.gathering.entity.Gathering;
-import org.noint.gathering.entity.Progress;
-import org.noint.gathering.entity.Reservation;
-import org.noint.gathering.entity.RoomSchedule;
+import org.noint.gathering.entity.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.noint.gathering.domain.reservation.enums.ReservationExceptionBody.*;
+import static org.noint.gathering.entity.AbleStatus.DISABLED;
+import static org.noint.gathering.entity.AbleStatus.ENABLED;
+import static org.noint.gathering.entity.Progress.CANCELED;
 
 @Slf4j
 @Service
@@ -40,6 +40,7 @@ public class ReservationCommendService {
         List<Reservation> reservations = new ArrayList<>();
         for (RoomSchedule roomSchedule : roomSchedules) {
             reservations.add(new Reservation(request.requestId(), gathering, roomSchedule));
+            roomSchedule.updateIsAble(DISABLED);
         }
 
         reservationRepository.saveAll(reservations);
@@ -49,7 +50,10 @@ public class ReservationCommendService {
         List<Reservation> reservations = reservationQueryService.getAllByRequestId(requestId);
         checkCancelAble(memberId, reservations);
 
-        reservations.forEach(reservation -> reservation.updateProgress(Progress.CANCELED));
+        reservations.forEach(reservation -> {
+            reservation.updateProgress(CANCELED);
+            reservation.getRoomSchedule().updateIsAble(ENABLED);
+        });
     }
 
     private void checkCancelAble(Long memberId, List<Reservation> reservations) {

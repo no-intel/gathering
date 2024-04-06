@@ -58,6 +58,7 @@ public class ReservationQueryRepository {
         return queryFactory
                 .selectFrom(reservation)
                 .innerJoin(reservation.gathering, gathering).fetchJoin()
+                .innerJoin(reservation.roomSchedule, roomSchedule).fetchJoin()
                 .where(reservation.requestId.eq(requestId))
                 .fetch();
     }

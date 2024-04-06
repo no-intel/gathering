@@ -41,4 +41,8 @@ public class RoomSchedule extends BaseTimeEntity {
         this.room = room;
         this.timeSlot = timeSlot;
     }
+
+    public void updateIsAble(AbleStatus ableStatus) {
+        this.isAble = ableStatus;
+    }
 }
