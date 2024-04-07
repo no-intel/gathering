@@ -7,6 +7,7 @@ import org.noint.gathering.domain.reservation.dto.request.ReserveGatheringReqDto
 import org.noint.gathering.domain.reservation.exception.ReservationException;
 import org.noint.gathering.domain.reservation.repository.ReservationRepository;
 import org.noint.gathering.entity.Gathering;
+import org.noint.gathering.entity.Progress;
 import org.noint.gathering.entity.Reservation;
 import org.noint.gathering.entity.RoomSchedule;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import static org.noint.gathering.domain.reservation.enums.ReservationExceptionB
 import static org.noint.gathering.entity.AbleStatus.DISABLED;
 import static org.noint.gathering.entity.AbleStatus.ENABLED;
 import static org.noint.gathering.entity.Progress.CANCELED;
+import static org.noint.gathering.entity.Progress.PROGRESS;
 
 @Slf4j
 @Service
@@ -88,8 +90,11 @@ public class ReservationCommendService {
     }
     private void checkAbleReserve(Gathering gathering, List<RoomSchedule> roomSchedules) {
         List<Reservation> reservations = reservationQueryService.getAllByGatheringOrRoomSchedules(gathering, roomSchedules);
-        if (!reservations.isEmpty()) {
-            throw new ReservationException(UNAVAILABLE_RESERVE);
+
+        for (Reservation reservation : reservations) {
+            if (reservation.getProgress() == PROGRESS) {
+                throw new ReservationException(UNAVAILABLE_RESERVE);
+            }
         }
     }
 }
