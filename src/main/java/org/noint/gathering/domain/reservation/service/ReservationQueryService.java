@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.noint.gathering.domain.reservation.dto.response.RoomScheduleResDto;
 import org.noint.gathering.domain.reservation.exception.ReservationException;
 import org.noint.gathering.domain.reservation.repository.ReservationQueryRepository;
-import org.noint.gathering.domain.reservation.repository.ReservationRepository;
 import org.noint.gathering.domain.reservation.repository.RoomScheduleRepository;
 import org.noint.gathering.entity.Gathering;
 import org.noint.gathering.entity.Reservation;
@@ -30,8 +29,6 @@ public class ReservationQueryService {
     private final ReservationQueryRepository reservationQueryRepository;
 
     private final RoomScheduleRepository roomScheduleRepository;
-
-    private final ReservationRepository reservationRepository;
 
     private final static Integer MAX_RANGE_VAL = 7;
 

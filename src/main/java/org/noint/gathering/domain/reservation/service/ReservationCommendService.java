@@ -1,22 +1,17 @@
 package org.noint.gathering.domain.reservation.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.noint.gathering.domain.gathering.service.gathering.GatheringQueryService;
 import org.noint.gathering.domain.reservation.dto.request.ReserveGatheringReqDto;
-import org.noint.gathering.domain.reservation.dto.response.RoomScheduleResDto;
 import org.noint.gathering.domain.reservation.exception.ReservationException;
 import org.noint.gathering.domain.reservation.repository.ReservationRepository;
-import org.noint.gathering.entity.*;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.noint.gathering.entity.Gathering;
+import org.noint.gathering.entity.Reservation;
+import org.noint.gathering.entity.RoomSchedule;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +31,6 @@ public class ReservationCommendService {
     private final GatheringQueryService gatheringQueryService;
 
     private final ReservationQueryService reservationQueryService;
-
-    private final RedisTemplate<String, Object> redisTemplate;
 
     public void reserveGathering(Long memberId, ReserveGatheringReqDto request) {
         checkDuplicateRequest(request);
