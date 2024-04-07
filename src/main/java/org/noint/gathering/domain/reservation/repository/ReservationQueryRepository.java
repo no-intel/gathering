@@ -47,8 +47,9 @@ public class ReservationQueryRepository {
     public List<Reservation> findAllByGatheringOrRoomSchedules(Gathering gathering, List<RoomSchedule> roomSchedules) {
         return queryFactory
                 .selectFrom(reservation)
+                .innerJoin(reservation.roomSchedule, roomSchedule).fetchJoin()
                 .where(reservation.gathering.eq(gathering)
-                        .or(reservation.roomSchedule.in(roomSchedules))
+                        .or(roomSchedule.in(roomSchedules))
                 )
                 .fetch();
     }

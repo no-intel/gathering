@@ -37,20 +37,16 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private MemberStatus status;
 
-    @Column(precision = 6, scale = 0, nullable = false)
-    private BigDecimal money;
-
     public Member(String email, String name, String password) {
         this.email = email;
         this.name = name;
         this.password = password;
         this.status = REGISTERED;
-        this.money = BigDecimal.ZERO;
     }
 
     public boolean isActiveMember() {
         MemberStatus status = this.getStatus();
-        log.info("계정 상태 : " + status.name());
+        log.info("계정 상태 : {}", status.name());
         return status == REGISTERED;
     }
 

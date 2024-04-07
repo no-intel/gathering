@@ -93,8 +93,15 @@ public class ReservationCommendService {
 
         for (Reservation reservation : reservations) {
             if (reservation.getProgress() == PROGRESS) {
+                log.warn("진행 중인 모임 장소 예약이 있습니다.");
                 throw new ReservationException(UNAVAILABLE_RESERVE);
             }
+
+            if (reservation.getRoomSchedule().getIsAble() == DISABLED) {
+                log.warn("모임 장소 예약이 불가능 합니다.");
+                throw new ReservationException(UNAVAILABLE_RESERVE);
+            }
+
         }
     }
 }

@@ -43,12 +43,12 @@ public class MemberQueryService {
             log.warn("비밀번호 불일치");
             throw new MemberException(LOGIN_FAILED);
         }
-        return new MyInfoResDto(findMember.getId(), findMember.getEmail(), findMember.getName(), findMember.getMoney());
+        return new MyInfoResDto(findMember.getId(), findMember.getEmail(), findMember.getName());
     }
 
     public MyInfoResDto myInfo(Long memberId) {
         Member findMember = getMember(memberId);
-        return new MyInfoResDto(findMember.getId(), findMember.getEmail(), findMember.getName(), findMember.getMoney());
+        return new MyInfoResDto(findMember.getId(), findMember.getEmail(), findMember.getName());
     }
 
     public Member getMember(Long memberId) {
