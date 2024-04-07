@@ -1,6 +1,5 @@
 package org.noint.gathering.domain.reservation.service;
 
-import jakarta.persistence.EntityManager;
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.Test;
 import org.noint.gathering.domain.gathering.service.gathering.GatheringQueryService;

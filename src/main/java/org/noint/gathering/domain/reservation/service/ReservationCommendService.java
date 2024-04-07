@@ -1,15 +1,22 @@
 package org.noint.gathering.domain.reservation.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.noint.gathering.domain.gathering.service.gathering.GatheringQueryService;
 import org.noint.gathering.domain.reservation.dto.request.ReserveGatheringReqDto;
+import org.noint.gathering.domain.reservation.dto.response.RoomScheduleResDto;
 import org.noint.gathering.domain.reservation.exception.ReservationException;
 import org.noint.gathering.domain.reservation.repository.ReservationRepository;
 import org.noint.gathering.entity.*;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +37,8 @@ public class ReservationCommendService {
 
     private final ReservationQueryService reservationQueryService;
 
+    private final RedisTemplate<String, Object> redisTemplate;
+
     public void reserveGathering(Long memberId, ReserveGatheringReqDto request) {
         checkDuplicateRequest(request);
         Gathering gathering = gatheringQueryService.getGathering(request.gatheringId());
@@ -42,8 +51,8 @@ public class ReservationCommendService {
             reservations.add(new Reservation(request.requestId(), gathering, roomSchedule));
             roomSchedule.updateIsAble(DISABLED);
         }
-
         reservationRepository.saveAll(reservations);
+        reservationQueryService.updateDayRoomSchedule(reservations.getFirst().getRoomSchedule().getDate());
     }
 
     public void cancelReservation(Long memberId, String requestId) {
@@ -54,6 +63,7 @@ public class ReservationCommendService {
             reservation.updateProgress(CANCELED);
             reservation.getRoomSchedule().updateIsAble(ENABLED);
         });
+        reservationQueryService.updateDayRoomSchedule(reservations.getFirst().getRoomSchedule().getDate());
     }
 
     private void checkCancelAble(Long memberId, List<Reservation> reservations) {

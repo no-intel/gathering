@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.noint.gathering.domain.reservation.dto.response.QRoomScheduleResDto;
 import org.noint.gathering.domain.reservation.dto.response.RoomScheduleResDto;
 import org.noint.gathering.entity.Gathering;
-import org.noint.gathering.entity.QGathering;
 import org.noint.gathering.entity.Reservation;
 import org.noint.gathering.entity.RoomSchedule;
 import org.springframework.stereotype.Repository;
@@ -25,7 +24,7 @@ public class ReservationQueryRepository {
 
     private final JPAQueryFactory queryFactory;
 
-    public List<RoomScheduleResDto> findRoomSchedule(LocalDate date) {
+    public List<RoomScheduleResDto> findRoomScheduleByDate(LocalDate date) {
         return queryFactory
                 .select(new QRoomScheduleResDto(
                         roomSchedule.id,

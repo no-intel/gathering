@@ -38,7 +38,7 @@ class ReservationQueryRepositoryTest {
         LocalDate date = LocalDate.now().plusDays(1);
 
         //when
-        List<RoomScheduleResDto> roomSchedule = reservationQueryRepository.findRoomSchedule(date);
+        List<RoomScheduleResDto> roomSchedule = reservationQueryRepository.findRoomScheduleByDate(date);
 
         //then
         assertThat(roomSchedule.size()).isEqualTo(70);
