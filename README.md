@@ -34,10 +34,13 @@ Gathering은 소규모 모임 예약 서비스입니다.
 - 캐싱 적용 및 성능 검증
   - 변경이 적고 자주 조회되는 API에 캐싱을 적용 후 JMeter를 사용하여 적용 전후의 성능 차이를 분석.
 
- # 🛠️사용 기술
+# 🛠️사용 기술
  - Java 21
  - Spring boot 3.2
  - MySQL8.0 / Redis / H2(test)
  - JPA(Hibernate6) + QueryDSL
  - JUnit5
  - JMeter
+
+# 🪢ER 다이어그램
+<img src="./erd.png" alt="" />
